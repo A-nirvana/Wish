@@ -1,23 +1,23 @@
-import GSquare from "@/components/gsapSquare"
-import { Pacifico } from "next/font/google"
+import GSquare from "@/components/gsapSquare";
+import { Pacifico } from "next/font/google";
 
 const pacifico = Pacifico({
   weight: "400",
   display: "swap",
-  subsets: ["latin"]
-})
+  subsets: ["latin"],
+});
 
-const Home :React.FC =()=>{
+const Home: React.FC = () => {
   return (
     <main className="h-screen flex justify-evenly">
       <section className="h-full flex justify-center items-center">
-        <GSquare/>
+        <GSquare />
       </section>
       <section className="text-7xl h-full flex justify-center items-center">
-        <p  className={pacifico.className}></p>
+        <p className={pacifico.className}>HBD</p>
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
