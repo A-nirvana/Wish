@@ -1,0 +1,88 @@
+:root {
+    --gradient: linear-gradient(-45deg, #be185d, #ec4899, rgba(144,43,245), #0ea5e9);
+  }
+
+body{  
+    -webkit-perspective: 500px; 
+    perspective: 500px;
+    background: black;
+  }
+
+.start{
+    background-size: 300%;
+    background-image: var(--gradient);
+    animation: bg-animation 3s infinite;
+}
+  
+  .disco{
+    color:black;
+    font-size:7em;
+    line-height:1;
+    
+    -webkit-transform: rotateX(25deg) rotateY(20deg) rotateZ(-3deg); 
+    transform: rotateX(25deg) rotateY(20deg) rotateZ(-3deg);  
+    
+    position:absolute;
+    right:0%;
+    top:10%;
+    margin-left:-180px;
+    
+    -webkit-animation: anim 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count:infinite;
+    
+    animation: anim 3s;
+    animation-timing-function: linear;
+    animation-iteration-count:infinite;
+  }
+
+  .hed{
+    -webkit-animation: anim 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count:infinite;
+    
+    animation: anim 3s;
+    animation-timing-function: linear;
+    animation-iteration-count:infinite;
+  }
+  
+  @-webkit-keyframes anim {
+      0%{text-shadow:-6px 4px 0px red;}
+      10% {text-shadow:4px -6px 0px green;}
+      20% {text-shadow:-9px 4px 0px blue;}
+      30% {text-shadow:4px -6px 0px yellow;}
+      40% {text-shadow:-8px 4px 0px orange;}
+      50% {text-shadow:4px 5px 0px purple;}
+      60% {text-shadow:-6px 4px 0px brown;}
+      70% {text-shadow:4px 7px 0px pink;}
+      80% {text-shadow:-9px -4px 0px lime;}
+      90% {text-shadow:4px -6px 0px cyan;}
+      100% {text-shadow:-9px 4px 0px teal;}
+  } 
+  
+  @keyframes anim {
+      0%{text-shadow:-6px 4px 0px red;}
+      10% {text-shadow:4px -6px 0px green;}
+      20% {text-shadow:-9px 4px 0px blue;}
+      30% {text-shadow:4px -6px 0px yellow;}
+      40% {text-shadow:-8px 4px 0px orange;}
+      50% {text-shadow:4px 5px 0px purple;}
+      60% {text-shadow:-6px 4px 0px brown;}
+      70% {text-shadow:4px 7px 0px pink;}
+      80% {text-shadow:-9px -4px 0px lime;}
+      90% {text-shadow:4px -6px 0px cyan;}
+      100% {text-shadow:-9px 4px 0px teal;}
+  } 
+
+  @keyframes bg-animation {
+    0% {
+      background-position: left;
+    }
+    50% {
+      background-position: right;
+    }
+    100% {
+      background-position: left;
+    }
+  }
+  
