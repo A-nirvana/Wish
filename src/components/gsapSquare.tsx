@@ -2,6 +2,7 @@
 
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 
 const GSquare = () => {
 
@@ -27,6 +28,15 @@ const GSquare = () => {
       });
     }
 
+    gsap.fromTo(
+      ".crown",
+      { y: 1000 },
+      { y: 0, x: 0, duration: 4, delay: 3.3, ease: "elastic" }
+    );
+
+    const t1 = gsap.timeline({ repeat: -1, delay: 7 });
+    t1.to(".crown", { x: 0, duration: 4 });
+
     let ctx = gsap.context(() => {
 
       tl.current = gsap.timeline()
@@ -44,7 +54,13 @@ const GSquare = () => {
 
   return (
     <div ref={app} className="flex">
-        <div className="square text-9xl font-black" >W</div>
+        <div className="square text-9xl font-black" ><Image
+          className="absolute -top-[60%] -left-[20%] z-30 left-[12%] opacity-83 crown -rotate-[25deg]"
+          src="/Crown.png"
+          width={150}
+          height={150}
+          alt="crown"
+        />W</div>
         <div className="square2 text-8xl font-black font-sans"><div ref={svgContainerRef} className="sav -mb-4"></div>I</div>
         <div className="spart text-9xl font-black" >s</div>
         <div className="hpart text-9xl font-black">h</div>

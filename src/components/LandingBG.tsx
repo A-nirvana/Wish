@@ -54,7 +54,7 @@ const LandingBG = () => {
           />
         ))}
       </div>
-      <Image
+      <Image alt="kamera"
         className="absolute left-[50%] translate-x-[-100%] kamera"
         src="/kamera.png"
         width={230}

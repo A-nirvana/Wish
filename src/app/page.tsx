@@ -15,16 +15,7 @@ const pacifico = Pacifico({
 });
 
 const Home: React.FC = () => {
-  useLayoutEffect(() => {
-    gsap.fromTo(
-      ".crown",
-      { y: 1000 },
-      { y: 0, x: 0, duration: 4, delay: 3.3, ease: "elastic" }
-    );
 
-    const t1 = gsap.timeline({ repeat: -1, delay: 7 });
-    t1.to(".crown", { x: 0, duration: 4 });
-  }, []);
   const router = useRouter();
   return (
     <main
@@ -34,13 +25,6 @@ const Home: React.FC = () => {
       }
     >
       <section className="h-full flex justify-center items-center">
-        <Image
-          className="absolute top-[28.5%] z-30 left-[12%] opacity-83 crown -rotate-[20deg]"
-          src="/Crown.png"
-          width={150}
-          height={150}
-          alt="crown"
-        />
         <GSquare />
       </section>
       <section className="relative z-10 text-7xl h-full flex flex-col justify-center items-center text-center w-[40%]">

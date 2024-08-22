@@ -1,6 +1,5 @@
 "use client";
 import CarouselDemo from "@/components/carouselComp";
-import CountDown from "@/components/CountDown";
 import { BirthDaydata } from "@/lib/example";
 import Image from "next/image";
 import gsap from "gsap";
@@ -8,6 +7,7 @@ import { Pacifico, Oswald } from "next/font/google";
 import { useEffect, useLayoutEffect, useState } from "react";
 import "./styles.css";
 import Confetti from "react-confetti";
+import BirthdayCake from "@/components/BirthdayCake";
 const pacifico = Pacifico({
   weight: "400",
   display: "swap",
@@ -19,65 +19,72 @@ const oswald = Oswald({
   subsets: ["latin"],
 });
 
+interface Birthday {
+    name: string;
+    photoURL: string;
+    date : string;
+    uid : string;
+}
+
 export default function Page({ params }: { params: { id: string } }) {
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
-  useLayoutEffect(() => {});
-  useEffect(() => {
-    const audio = new Audio("/yay-6326.mp3");
-    audio.play().catch((e) => {
-      console.log(e);
-    });
-    gsap.to(".hbd", { y: -1000, delay: 2, duration: 1 });
-    if (typeof window !== "undefined") {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    }
+    const [birthday, setBirthday] = useState<Birthday | null>(null);
+    const [messages, setMessages] = useState([]);
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+    useEffect(() => {
+        const fetchBirthday = async () => {
+            const res = await fetch(`/api/get_birthday?uid=${params.id}`);
+            const data = await res.json();
+            setBirthday(data);
+        };
+        const fetchMessages = async () => {
+            const res = await fetch(`/api/messages?uid=${params.id}`);
+            const data = await res.json();
+            setMessages(data.messages);
+        }
+        fetchBirthday();
+        fetchMessages();
+    }, [params.id]);
+    useLayoutEffect(() => {
+        if(birthday?.name){const audio = new Audio('/yay-6326.mp3');
+        audio.play().catch(e => {
+            console.log(e)
+        });
+        gsap.to(".hbd", { y: -1000, delay: 2, duration: 1 })
+        if (typeof window !== 'undefined') {
+            setWidth(window.innerWidth);
+            setHeight(window.innerHeight);
+        }
 
-    gsap.to(".mainsc", { zIndex: 10, delay: 3 });
-    return () => {
-      audio.pause();
-    };
-  }, []);
+        gsap.to(".mainsc", { zIndex: 10, delay: 3 })
+        return () => {
+            audio.pause();
+        };}
+    }, [birthday?.name]);
 
-  return (
-    <main className="h-screen min-h-screen ">
-      <Confetti
-        width={width}
-        height={height}
-        numberOfPieces={400}
-        recycle={false}
-      />
-      <section className="hbd absolute top-0 left-0 w-full h-full flex justify-center items-center start">
-        <div className="text-center flex flex-col items-center">
-          <Image
-            src={BirthDaydata.photoURL}
-            alt="Birthday photo"
-            height={300}
-            width={300}
-            className="rounded-full"
-          />
-          <h1 className={pacifico.className + " text-7xl"}>Happy Birthday</h1>
-          <h2 className="text-5xl mt-8">{BirthDaydata.name}</h2>
-        </div>
-      </section>
-      <section className="h-full flex flex-col items-center relative -z-50 mainsc">
-        <div
-          className={
-            "mt-6 text-4xl text-center hed backdrop-blur-[1rem_0.5rem_0.5rem_#44aaff] " +
-            pacifico.className
-          }
-        >
-          <p className="mb-2">Look!! your friends and family</p>
-          <p> have sent you wishes</p>
-        </div>
-        <CarouselDemo photo={true} />
-        <CarouselDemo />
-        <div className={"disco flex flex-col items-center " + oswald.className}>
-          <p>HAPPY</p>
-          <p>BIRTHDAY</p>
-        </div>
-      </section>
-    </main>
-  );
+    if (!birthday) return <BirthdayCake/>
+    return (
+        <main className="h-screen min-h-screen ">
+            <Confetti width={width} height={height} numberOfPieces={400} recycle={false}
+            />
+            <section className="hbd absolute top-0 left-0 w-full h-full flex justify-center items-center start">
+                <div className="text-center flex flex-col items-center">
+                    <Image src={BirthDaydata.photoURL} alt="Birthday photo" height={300} width={300} className="rounded-full" />
+                    <h1 className={pacifico.className + " text-7xl"}>Happy Birthday</h1>
+                    <h2 className="text-5xl mt-8">{birthday.name}</h2>
+                </div>
+            </section>
+            <section className="h-full flex flex-col items-center relative -z-50 mainsc">
+                <div className={"mt-6 text-4xl text-center hed backdrop-blur-[1rem_0.5rem_0.5rem_#44aaff] "+pacifico.className}>
+                    <p className="mb-2">Look!! your friends and family</p><p> have sent you wishes</p>
+                </div>
+                <CarouselDemo photo={true} data={messages}/>
+                <CarouselDemo data={messages}/>
+                <div className={"disco flex flex-col items-center "+ oswald.className}>
+                    <p>HAPPY</p>
+                    <p>BIRTHDAY</p>
+                </div>
+            </section>
+        </main>
+    );
 }
