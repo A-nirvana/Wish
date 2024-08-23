@@ -60,7 +60,7 @@ export default function Page() {
       setHeight(window.innerHeight);
     }
   }, []);
-
+  if (typeof window !== "undefined") 
   return (
     <section className="flex justify-center items-center h-[100vh] w-[100vw] bg-gray-900">
       {click && (
@@ -69,13 +69,8 @@ export default function Page() {
           height={height}
           numberOfPieces={400}
           recycle={false}
-        />
-      )}
-  if (typeof window !== "undefined") {
-
-    
-    return (
-      <section className="flex justify-center items-center h-[100vh] w-[100vw] bg-gray-900">
+          />
+        )}
       {uid && <Share uid={uid} />}
       {loading && (
         <div className="absolute">
@@ -153,5 +148,4 @@ export default function Page() {
       </div>
     </section>
   );
-}
 }
