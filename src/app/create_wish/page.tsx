@@ -49,9 +49,11 @@ export default function Page() {
       setLoading(false);
     }
   };
+  if (typeof window !== "undefined") {
 
-  return (
-    <section className="flex justify-center items-center h-[100vh] w-[100vw] bg-gray-900">
+    
+    return (
+      <section className="flex justify-center items-center h-[100vh] w-[100vw] bg-gray-900">
       {uid && <Share uid={uid} />}
       {loading && (
         <div className="absolute">
@@ -70,14 +72,14 @@ export default function Page() {
               width={100}
               height={100}
               alt="photo"
-            ></Image>
+              ></Image>
             <input
               type="file"
               accept="image/*"
               id="photo"
               className="hidden"
-              onChange={handlePhoto}
-            />
+              onChange={handlePhoto}                
+              />
             {}
             Add Photo
           </label>
@@ -86,16 +88,16 @@ export default function Page() {
             placeholder="Name or Nick Name"
             className="input input-bordered w-full max-w-xs"
             onChange={(e) => setName(e.target.value)}
-          />
+            />
           <input
             type="date"
             onChange={handleDateChange}
             className="input input-bordered w-full max-w-xs"
-          />
+            />
           <button
             onClick={handleSubmit}
             className="btn bg-purple-600 hover:animate-pulse hover:bg-purple-600 "
-          >
+            >
             Create
           </button>
           {date && <CountDown targetDate={date} />}
@@ -103,4 +105,5 @@ export default function Page() {
       </div>
     </section>
   );
+}
 }
