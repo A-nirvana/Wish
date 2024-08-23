@@ -1,12 +1,13 @@
 "use client";
 import { Pacifico } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import CountDown from "@/components/CountDown";
 import { setBirthDay } from "@/lib/firebase/firestore";
 import Share from "./Share";
 import BirthdayCake from "@/components/BirthdayCake";
 import { Divide } from "lucide-react";
+import Confetti from "react-confetti";
 
 const pacifico = Pacifico({
   weight: "400",
@@ -49,6 +50,27 @@ export default function Page() {
       setLoading(false);
     }
   };
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [click, setClick] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+  }, []);
+
+  return (
+    <section className="flex justify-center items-center h-[100vh] w-[100vw] bg-gray-900">
+      {click && (
+        <Confetti
+          width={width}
+          height={height}
+          numberOfPieces={400}
+          recycle={false}
+        />
+      )}
   if (typeof window !== "undefined") {
 
     
@@ -63,7 +85,7 @@ export default function Page() {
       <div className="">
         <div className="flex flex-col justify-center gap-4">
           <h1 className={`${pacifico.className} text-2xl`}>
-            Create a Birthday Wish
+            Create a Birthday Surprise
           </h1>
           <label className="flex flex-col items-center " htmlFor="photo">
             <Image
@@ -95,13 +117,39 @@ export default function Page() {
             className="input input-bordered w-full max-w-xs"
             />
           <button
-            onClick={handleSubmit}
+            onClick={() => {
+              handleSubmit();
+              setClick(true);
+              setTimeout(() => {
+                setClick(false);
+              }, 5000);
+            }}
             className="btn bg-purple-600 hover:animate-pulse hover:bg-purple-600 "
             >
             Create
           </button>
           {date && <CountDown targetDate={date} />}
         </div>
+      </div>
+      {!uid && !loading && (
+        <div className="absolute top-[23%] md:top-[13%]">
+          <Image
+            src="/balloon-3945_256.gif"
+            height={110}
+            width={110}
+            alt="ballon"
+          />
+        </div>
+      )}
+      <div className="absolute top-[100%] translate-y-[-100%] p-1 box-border flex wrap overflow-hidden">
+        {/* {Array.from({ length: 7 }, (_, i) => (
+          <Image
+            src="/ballon.png"
+            height={50}
+            width={50}
+            alt="ballon"
+          />
+        ))} */}
       </div>
     </section>
   );
