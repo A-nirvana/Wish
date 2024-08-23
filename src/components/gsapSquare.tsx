@@ -55,7 +55,7 @@ const GSquare = () => {
   return (
     <div ref={app} className="flex">
         <div className="square text-9xl font-black" ><Image
-          className="absolute -top-[60%] -left-[20%] z-30 left-[12%] opacity-83 crown -rotate-[25deg]"
+          className="absolute -top-[60%] -left-[20%] z-30 opacity-83 crown -rotate-[25deg]"
           src="/Crown.png"
           width={150}
           height={150}

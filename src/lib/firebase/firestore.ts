@@ -41,7 +41,7 @@ export const addMessage = async (
   const msgRef = collection(db, "birthdayMessages");
   console.log(photo)
   try {
-    const photoURL = photo ? await upload(photo, "photo") : "";
+    const photoURL = photo ? await upload(photo, "photo/") : "";
     await updateDoc(doc(msgRef, uid), {
       messages: arrayUnion({
         name,

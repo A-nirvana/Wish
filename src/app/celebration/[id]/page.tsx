@@ -9,21 +9,21 @@ import "./styles.css";
 import Confetti from "react-confetti";
 import BirthdayCake from "@/components/BirthdayCake";
 const pacifico = Pacifico({
-  weight: "400",
-  display: "swap",
-  subsets: ["latin"],
+    weight: "400",
+    display: "swap",
+    subsets: ["latin"],
 });
 const oswald = Oswald({
-  weight: "400",
-  display: "swap",
-  subsets: ["latin"],
+    weight: "400",
+    display: "swap",
+    subsets: ["latin"],
 });
 
 interface Birthday {
     name: string;
     photoURL: string;
-    date : string;
-    uid : string;
+    date: string;
+    uid: string;
 }
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -46,23 +46,34 @@ export default function Page({ params }: { params: { id: string } }) {
         fetchMessages();
     }, [params.id]);
     useLayoutEffect(() => {
-        if(birthday?.name){const audio = new Audio('/yay-6326.mp3');
-        audio.play().catch(e => {
-            console.log(e)
-        });
-        gsap.to(".hbd", { y: -1000, delay: 2, duration: 1 })
-        if (typeof window !== 'undefined') {
-            setWidth(window.innerWidth);
-            setHeight(window.innerHeight);
-        }
+        if (birthday?.name) {
+            const audio = new Audio('/yay-6326.mp3');
+            const bd = new Audio('/whistle.wav');
 
-        gsap.to(".mainsc", { zIndex: 10, delay: 3 })
-        return () => {
-            audio.pause();
-        };}
+            audio.play().catch(e => {
+                console.log(e);
+            });
+            audio.addEventListener('ended', () => {
+                bd.play().catch(e => {
+                    console.log(e);
+                });
+            });
+            gsap.to(".hbd", { y: -1000, delay: 2, duration: 1 });
+            gsap.to(".mainsc", { zIndex: 10, delay: 3 });
+
+            if (typeof window !== 'undefined') {
+                setWidth(window.innerWidth);
+                setHeight(window.innerHeight);
+            }
+
+            return () => {
+                audio.pause();
+                bd.pause();
+            };
+        }
     }, [birthday?.name]);
 
-    if (!birthday) return <BirthdayCake/>
+    if (!birthday) return <BirthdayCake />
     return (
         <main className="h-screen min-h-screen ">
             <Confetti width={width} height={height} numberOfPieces={400} recycle={false}
@@ -75,14 +86,24 @@ export default function Page({ params }: { params: { id: string } }) {
                 </div>
             </section>
             <section className="h-full flex flex-col items-center relative -z-50 mainsc">
-                <div className={"mt-6 text-4xl text-center hed backdrop-blur-[1rem_0.5rem_0.5rem_#44aaff] "+pacifico.className}>
+                <div className={"mt-6 text-4xl text-center hed backdrop-blur-[1rem_0.5rem_0.5rem_#44aaff] " + pacifico.className}>
                     <p className="mb-2">Look!! your friends and family</p><p> have sent you wishes</p>
                 </div>
-                <CarouselDemo photo={true} data={messages}/>
-                <CarouselDemo data={messages}/>
-                <div className={"disco flex flex-col items-center "+ oswald.className}>
+                <CarouselDemo photo={true} data={messages} />
+                <CarouselDemo data={messages} />
+                <div className={"disco flex flex-col items-center " + oswald.className}>
                     <p>HAPPY</p>
                     <p>BIRTHDAY</p>
+                </div>
+                <div className={"absolute top-28 left-16 flex flex-col items-center drop-shadow-[-0.1rem_0.1rem_2rem_#ffaaff99]"}>
+                    <Image src={BirthDaydata.photoURL} alt="Birthday photo" height={200} width={200} className="rounded-full" />
+                    <Image
+                        className="relative bottom-64 right-12 z-30 opacity-83 crown -rotate-[25deg]"
+                        src="/Crown.png"
+                        width={150}
+                        height={150}
+                        alt="crown"
+                    />
                 </div>
             </section>
         </main>
