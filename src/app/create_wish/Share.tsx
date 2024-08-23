@@ -7,7 +7,7 @@ interface props {
 }
 
 export default function Share(props: props) {
-  const baseURL = "http://localhost:3000/";
+  const baseURL = `${window.location.protocol}//${window.location.host}/`;
   const router = useRouter();
   const [isCopied, setIsCopied] = useState(false);
   const celebPageURL = baseURL + "celebration/" + props.uid;
