@@ -1,13 +1,13 @@
 "use client";
 import { Copy, Share2 } from "lucide-react";
 import React, { useState } from "react";
-import { baseURL } from "../constants/data";
 import { useRouter } from "next/navigation";
 interface props {
   uid: string;
 }
 
 export default function Share(props: props) {
+  const baseURL = "http://localhost:3000/";
   const router = useRouter();
   const [isCopied, setIsCopied] = useState(false);
   const celebPageURL = baseURL + "celebration/" + props.uid;

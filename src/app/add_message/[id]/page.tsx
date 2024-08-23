@@ -70,7 +70,7 @@ export default function Page({ params }: { params: { id: string } }) {
       {sucess && (
         <div className="toast">
           <div className="alert bg-purple-600 flex justify-center ">
-            <span>Message Submited Sucessfully</span>
+            <span className="font-sans">Message Submited Sucessfully</span>
           </div>
         </div>
       )}
@@ -93,9 +93,13 @@ export default function Page({ params }: { params: { id: string } }) {
           ></Image>
         )}
         {data && <CountDown targetDate={data.date} />}
-        <h1>Lets make {data?.name}&apos;s Birthday Special</h1>
-        <div className="flex flex-col items-center justify-center gap-4">
-          <h1>Write a Message for {data?.name}</h1>
+        <h1 className="font-sans font-bold">
+          Lets make {data?.name}&apos;s Birthday Special
+        </h1>
+        <div className="flex flex-col items-center justify-center gap-4 font-sans font-bold">
+          <h1 className="font-sans font-bold">
+            Write a Message for {data?.name}
+          </h1>
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
