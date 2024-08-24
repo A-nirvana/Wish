@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Divide, LoaderCircle } from "lucide-react";
 import BirthdayCake from "@/components/BirthdayCake";
 import Image from "next/image";
-import { upload } from "@/lib/firebase/storage";
 
 const pacifico = Pacifico({
   weight: "400",
