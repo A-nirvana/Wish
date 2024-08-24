@@ -46,12 +46,17 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    const res = await addMessage(params.id, name, message, photo);
-    setLoading(false);
-    if (res) {
-      setSucess(true);
-      setTimeout(() => setSucess(false), 1000);
+    if (name && message) {
+      setLoading(true);
+      const res = await addMessage(params.id, name, message, photo);
+      setLoading(false);
+      if (res) {
+        setSucess(true);
+        setTimeout(() => setSucess(false), 1000);
+      } else {
+        setError(true);
+        setTimeout(() => setError(false), 2000);
+      }
     } else {
       setError(true);
       setTimeout(() => setError(false), 2000);
