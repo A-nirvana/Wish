@@ -37,8 +37,8 @@ const CarouselDemo: React.FC<CarouselProps> = ({ photo, data }) => {
            { let g = 43 +  Math.floor(Math.random()*100);
             return(
                     <CarouselItem key={index} className={` ${photo?"basis-[100%] md:basis-1/3 pl-0 -ml-0":"basis-1/2 md:basis-1/5"}`}>
-                        {photo ? <div className="border-y-8 border-dashed before:border-solid before:absolute before:-top-10 h-max">
-                            <Image src={data[index].photoURL} alt={data[index].name} width={300} height={300} /></div> :
+                        {photo ? <div className="border-y-8 border-dashed h-[40vh] flex justify-center items-center">
+                            <Image src={data[index].photoURL} alt={data[index].name} width={300} height={300} className="h-full object-contain w-full opacity-80" /></div> :
                             <div className={`glass py-6 px-4 rounded-xl`} style={{backgroundColor:`rgba(144,${g},245,0.4)`}}>
                                 <p className="backdrop-blur-[1rem_0.5rem_0.5rem_#44aaff]">{data[index].message}</p>
                                 <p className="text-end mt-4">~ {data[index].name}</p>

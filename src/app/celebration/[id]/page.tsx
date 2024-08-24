@@ -30,6 +30,7 @@ export default function Page({ params }: { params: { id: string } }) {
     const [messages, setMessages] = useState([]);
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
     useEffect(() => {
         const fetchBirthday = async () => {
             const res = await fetch(`/api/get_birthday?uid=${params.id}`);
@@ -45,10 +46,10 @@ export default function Page({ params }: { params: { id: string } }) {
         fetchMessages();
     }, [params.id]);
     useLayoutEffect(() => {
-        if (birthday?.name) {
-            const audio = new Audio('/yay-6326.mp3');
-            const bd = new Audio('/whistle.wav');
+        const audio = new Audio('/yay-6326.mp3');
+        const bd = new Audio('/whistle.mp3');
 
+        if (birthday?.name && isPlaying) {
             audio.play().catch(e => {
                 console.log(e);
             });
@@ -70,9 +71,9 @@ export default function Page({ params }: { params: { id: string } }) {
                 bd.pause();
             };
         }
-    }, [birthday?.name]);
+    }, [birthday?.name, isPlaying]);
 
-    if (!birthday) return <BirthdayCake />
+    if (!birthday) return <BirthdayCake button={true} handleClick={()=>{setIsPlaying(true)}}/>
     return (
         <main className="h-screen min-h-screen ">
             <Confetti width={width} height={height} numberOfPieces={400} recycle={false}
@@ -97,7 +98,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <div className={"absolute top-28 left-16 flex flex-col items-center drop-shadow-[-0.1rem_0.1rem_2rem_#ffaaff99]"}>
                     <Image src={birthday.photoURL} alt="Birthday photo" height={200} width={200} className="rounded-full" />
                     <Image
-                        className="relative bottom-64 right-12 z-30 opacity-83 crown -rotate-[25deg]"
+                        className="relative bottom-72 right-12 z-30 opacity-83 crown -rotate-[25deg]"
                         src="/Crown.png"
                         width={150}
                         height={150}
