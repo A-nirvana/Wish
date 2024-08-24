@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { id: string } }) {
         }
     }, [birthday?.name, isPlaying]);
 
-    if (!birthday) return <BirthdayCake button={true} handleClick={()=>{setIsPlaying(true)}}/>
+    if (!birthday || !isPlaying) return <BirthdayCake button={true} handleClick={()=>{setIsPlaying(true)}}/>
     return (
         <main className="h-screen min-h-screen ">
             <Confetti width={width} height={height} numberOfPieces={400} recycle={false}
