@@ -1,6 +1,5 @@
 "use client";
 import CarouselDemo from "@/components/carouselComp";
-import { BirthDaydata } from "@/lib/example";
 import Image from "next/image";
 import gsap from "gsap";
 import { Pacifico, Oswald } from "next/font/google";
@@ -80,7 +79,7 @@ export default function Page({ params }: { params: { id: string } }) {
             />
             <section className="hbd absolute top-0 left-0 w-full h-full flex justify-center items-center start">
                 <div className="text-center flex flex-col items-center">
-                    <Image src={BirthDaydata.photoURL} alt="Birthday photo" height={300} width={300} className="rounded-full" />
+                    <Image src={birthday.photoURL} alt="Birthday photo" height={300} width={300} className="rounded-full" />
                     <h1 className={pacifico.className + " text-7xl"}>Happy Birthday</h1>
                     <h2 className="text-5xl mt-8">{birthday.name}</h2>
                 </div>
@@ -96,7 +95,7 @@ export default function Page({ params }: { params: { id: string } }) {
                     <p>BIRTHDAY</p>
                 </div>
                 <div className={"absolute top-28 left-16 flex flex-col items-center drop-shadow-[-0.1rem_0.1rem_2rem_#ffaaff99]"}>
-                    <Image src={BirthDaydata.photoURL} alt="Birthday photo" height={200} width={200} className="rounded-full" />
+                    <Image src={birthday.photoURL} alt="Birthday photo" height={200} width={200} className="rounded-full" />
                     <Image
                         className="relative bottom-64 right-12 z-30 opacity-83 crown -rotate-[25deg]"
                         src="/Crown.png"
