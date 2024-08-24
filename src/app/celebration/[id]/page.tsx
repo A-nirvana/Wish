@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { id: string } }) {
     }
   }, [birthday?.name, isPlaying]);
 
-  if (!birthday)
+  if (!birthday || !isPlaying)
     return (
       <BirthdayCake
         button={true}
